@@ -1,7 +1,7 @@
 # CinCoutWebApp
 Web Application that connects to my previous CinCout mobile application.
 
-#Features Include:
+# Features Include:
 -Log In Page that creates a user
 -Employee List
 -Active Employees (Employees who are clocked in)
