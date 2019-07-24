@@ -1,5 +1,10 @@
 {%extends 'layout.html'%}
 
-{% block page %}
-
-{% endblock page %}
+{% block nameList %}
+{% for names in nameArray %}
+<li>
+    {{names}}
+    <i class="material-icons md-48">more_vert</i>
+</li>
+{% endfor %}
+{% endblock nameList %}

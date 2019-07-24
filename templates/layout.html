@@ -5,6 +5,7 @@
 <link rel="stylesheet" type = "text/css" href="{{ url_for('static',filename='css/layout.css') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Darker+Grotesque">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mitr">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock styles %}
 
 {% block body %}
@@ -18,12 +19,9 @@
         </div>
         <div class="card-content" style="border:2px solid black">
             <ul>
-                <li>Omar Guajardo</li>
-                <li>Luis Acosta</li>
-                <li>Omar Garza</li>
-                <li>Jennifer Guajardo</li>
-                <li>Anahi Cantu</li>
-                <li>Denielle Islas</li>
+                {% block nameList %}
+                
+                {% endblock nameList %}
             </ul>
         </div>
     </div>
@@ -32,6 +30,7 @@
             Active Employees
         </div>    
     </div>
+    
 </div>
 {% endblock body %}
 
