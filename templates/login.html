@@ -1,0 +1,40 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/login.css')}}">
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+      
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+          </div>
+      
+          <!-- Login Form -->
+          <form>
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+          </form>
+      
+          <!-- Remind Passowrd -->
+          <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+          </div>
+      
+        </div>
+      </div>
+{% endblock %}
