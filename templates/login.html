@@ -1,27 +1,21 @@
 {% extends "bootstrap/base.html" %}
+
 {% block title %}This is an example page{% endblock %}
 
 {% block styles %}
 {{super()}}
 <link rel="stylesheet"
       href="{{url_for('static', filename='css/login.css')}}">
+      <link rel="shortcut icon" href="https://s3.amazonaws.com/django-blog/ico/favicon_v2.ico">
+
 {% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <!-- ... -->
-</div>
-{% endblock %}
 
 {% block content %}
 <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
       
-          <!-- Icon -->
-          <div class="fadeIn first">
-            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-          </div>
       
           <!-- Login Form -->
           <form>
