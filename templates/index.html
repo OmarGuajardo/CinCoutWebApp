@@ -1,0 +1,23 @@
+{%extends 'layout.html'%}
+
+{% block nameList %}
+{% for names in nameArray %}
+<li class = "employeeListItem">
+    {{names}}
+    <i class="material-icons">more_vert</i>
+    
+    
+</li>
+<!-- <div class="btn-group dropleft">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_vert</i>        </button>
+        <div class="dropdown-menu">
+          
+          <li>asdfas</li>
+          <li>asfd</li>
+          <li>asd</li>
+        </div>
+      </div>    -->
+{% endfor %}
+{% endblock nameList %}
+

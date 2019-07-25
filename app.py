@@ -10,9 +10,9 @@ nameArray = ['Omar Guajardo','Luis Acosta','Omar Garza','Anahi Cantu','Denielle 
 def login():
     return render_template('login.html')
 
-@app.route('/base')
+@app.route('/manage')
 def base():
-    return render_template('trial.html',nameArray = nameArray)
+    return render_template('index.html',nameArray = nameArray)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -23,9 +23,7 @@
         </div>
         <div class="card-content" style="border:2px solid black">
             <ul>
-                {% block nameList %}
-                
-                {% endblock nameList %}
+                {% block nameList %}{% endblock nameList %}
             </ul>
         </div>
     </div>
@@ -33,11 +31,45 @@
         <div class="card-header" id = "active-employees-header">
             Active Employees
         </div>    
+        
     </div>
-    
+   
 </div>
-{% endblock body %}
 
+<!-- Default dropleft button -->
+<div class="dd-container">
+<div class="btn-group dropleft">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_vert</i>        </button>
+        <div class="dropdown-menu">
+          <!-- Dropdown menu links -->
+          <li>asdfas</li>
+          <li>asfd</li>
+          <li>asd</li>
+        </div>
+      </div>    
+    </div>
+        <!-- <li class="dropdown" style="list-style: none; display: inline;float: right;">
+            <div data-toggle="dropdown" style="display: inline;"><i class="material-icons md-48">more_vert</i></div>
+            <ul class="dropdown-menu">
+                <li><a href="#" id="">1</a></li>
+                <li><a href="#" id="">2</a></li>
+            </ul>
+        </li> -->
+    
+
+<!-- THIS IS SCRIPTS  -->
+{% block scripts %}
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='js/trial.js')}}"></script>
+{{super()}}
+{% endblock %}
+
+
+{% endblock body %}
 
 
 
