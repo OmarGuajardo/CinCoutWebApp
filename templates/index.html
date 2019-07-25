@@ -1,23 +1,31 @@
 {%extends 'layout.html'%}
 
 {% block nameList %}
-{% for names in nameArray %}
+{% for name in nameArray %}
 <li class = "employeeListItem">
-    {{names}}
-    <i class="material-icons">more_vert</i>
-    
-    
-</li>
-<!-- <div class="btn-group dropleft">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">more_vert</i>        </button>
-        <div class="dropdown-menu">
-          
-          <li>asdfas</li>
-          <li>asfd</li>
-          <li>asd</li>
+    <!-- {{names}}
+    <i class="material-icons">more_vert</i> -->
+    <div class="name">
+            {{name}}
         </div>
-      </div>    -->
+        <div class="settings">
+                <div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li class = "employee-list-setting">Edit</li>
+                                <li class = "employee-list-setting">Stats</li>
+                                <li id = "delete" class = "employee-list-setting">Delete</li>
+                            </ul>
+                        </div>
+                </div>
+        </div>
+        
+
+</li>
+
 {% endfor %}
 {% endblock nameList %}
 
