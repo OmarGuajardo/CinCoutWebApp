@@ -163,7 +163,7 @@ background-color: #27ae60;
 .card-header.qrcode{
     display: inline-block;
     border: 2px solid black;
-    width: 50%;
+    /* width: 50%; */
     
 }
 
@@ -174,11 +174,50 @@ background-color: #27ae60;
     
 }
 
-.qr-code-container{
-    /* display: inline-block; */
-    /* width: 50%;
-    height: 100%; */
-    
-    background-color: red;   
-
+.qrcodeimage{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
+
+/* TIME CARD EMPLOYEE  */
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    /* background-color: #eee;
+    color: #444; */
+    font-family: "Darker Grotesque";
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+    transition: 0.3s ease;
+    background-color: transparent;
+  }
+
+  .collapsible:focus{
+      outline: 0;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: #fcad2e;
+  }
+  
+  /* Style the collapsible content. Note: hidden by default */
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #fcad2e;
+    transition: 0.3s ease;
+    font-size: 22px;
+  }
+  
+  .content li{
+      list-style-type: none;
+      margin-bottom: 10px;
+      cursor: default;
+  }

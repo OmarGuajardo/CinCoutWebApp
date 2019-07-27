@@ -2,6 +2,7 @@ employeeListItems = $(".employeeListItem");
 employeeListSetting = $('.employee-list-setting');
 employeeListSettingUl = $('.employee-list-setting-ul');
 qr_code_container = $('.qr-code-container');
+card_header_qrcode = $('.card-header.qrcode');
 
 "https://api.qrserver.com/v1/create-qr-code/?data=OmarGuajardo&amp;size=250x250";
 
@@ -17,18 +18,32 @@ for (let i = 0; i < employeeListItems.length; i++) {
     // console.log(nameText);
     testArray.push(nameText);
     $(indicators[2]).on('click',function(){
-        reference(testArray[i])
+        updateCode(testArray[i])
     });
         
 
 }
-function reference(name){
-    console.log("this element belongs to " + name);
-    updateCode(name);
-}
 
 function updateCode(name){
+    console.log("this element belongs to " + name);
     qrCodeImage[0].src = "https://api.qrserver.com/v1/create-qr-code/?data="+name+"&amp;size=250x250";
     console.log(qrCodeImage[0]);
-    // qrCodeImage[0].src = "https://api.qrserver.com/v1/create-qr-code/?data=-LkPd7EJJ5ACShkrA14T&amp;size=250x250";
+    card_header_qrcode[0].textContent = name + "'s ID"
+    
+}
+
+// EXPANDABLE LIST
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
 }

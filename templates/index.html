@@ -1,12 +1,12 @@
 {%extends 'layout.html'%}
 
 {% block nameList %}
-{% for name in nameArray %}
+{% for name in range(0,nameArray|length) %}
 <li class = "employeeListItem">
     <!-- {{names}}
     <i class="material-icons">more_vert</i> -->
-    
-    <div class="name">{{name}}</div>
+
+    <div class="name">{{nameArray[name]}}</div>
         <div class="settings">
                 <div class="btn-group dropleft">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,11 +29,42 @@
 {% endfor %}
 {% endblock nameList %}
 
+<!-- QR CODE IMAGE -->
 {% block qrcode %}
-
 <img id = "qrcodeimage" src="https://api.qrserver.com/v1/create-qr-code/?data={{nameArray[1]}}&amp;size=250x250" alt="" title="" />
-
-
 {% endblock qrcode %}
 
-
+{% block timestamp %}
+<div class="card-content">
+                        <button class="collapsible">February 15, 2019</button>
+                        <div class="content">
+                          <li>Clock In : 12:00 PM</li>
+                          <li>Clock Out : 5:00 PM</li>
+                        </div>
+                        <button class="collapsible">February 15, 2019</button>
+                        <div class="content">
+                          <li>Clock In : 12:00 PM</li>
+                          <li>Clock Out : 5:00 PM</li>
+                        </div>
+                        <button class="collapsible">February 15, 2019</button>
+                        <div class="content">
+                          <li>Clock In : 12:00 PM</li>
+                          <li>Clock Out : 5:00 PM</li>
+                        </div>
+{% endblock timestamp %}
+<div class="card-content">
+                        <button class="collapsible">February 15, 2019</button>
+                        <div class="content">
+                          <li>Clock In : 12:00 PM</li>
+                          <li>Clock Out : 5:00 PM</li>
+                        </div>
+                        <button class="collapsible">February 15, 2019</button>
+                        <div class="content">
+                          <li>Clock In : 12:00 PM</li>
+                          <li>Clock Out : 5:00 PM</li>
+                        </div>
+                        <button class="collapsible">February 15, 2019</button>
+                        <div class="content">
+                          <li>Clock In : 12:00 PM</li>
+                          <li>Clock Out : 5:00 PM</li>
+                        </div>
