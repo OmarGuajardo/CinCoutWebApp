@@ -5,18 +5,17 @@
 <li class = "employeeListItem">
     <!-- {{names}}
     <i class="material-icons">more_vert</i> -->
-    <div class="name">
-            {{name}}
-        </div>
+    <div class="name">{{name}}</div>
         <div class="settings">
                 <div class="btn-group dropleft">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">more_vert</i>
                         </button>
                         <div class="dropdown-menu">
-                            <ul>
+                            <ul class = "employee-list-setting-ul">
                                 <li class = "employee-list-setting">Edit</li>
                                 <li class = "employee-list-setting">Stats</li>
+                                <li class = "employee-list-setting">ID</li>
                                 <li id = "delete" class = "employee-list-setting">Delete</li>
                             </ul>
                         </div>
@@ -28,4 +27,11 @@
 
 {% endfor %}
 {% endblock nameList %}
+
+{% block qrcode %}
+
+<img id = "qrcodeimage" src="https://api.qrserver.com/v1/create-qr-code/?data={{nameArray[1]}}&amp;size=250x250" alt="" title="" />
+
+{% endblock qrcode %}
+
 

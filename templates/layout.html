@@ -7,8 +7,6 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 <link rel="stylesheet" type = "text/css" href="{{ url_for('static',filename='css/layout.css') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Darker+Grotesque">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mitr">
@@ -18,27 +16,54 @@
 {% endblock styles %}
 
 {% block body %}
+
 <div class="title">
     <h1>Cin Cout</h1>
  </div>
 <div class="main-container">
-    <div class="card-container" id = "left">
-        <div class="card-header" id = "employee-list-header">
-            Employee List
+
+    <div class="top-half" style = "border:2px solid red;">
+        <div class="card-container left" id = "left">
+            <div class="card-header" id = "employee-list-header">
+                Employee List
+            </div>
+            <div class="card-content">
+                <ul>
+                    {% block nameList %}{% endblock nameList %}
+                </ul>
+            </div>
         </div>
-        <div class="card-content">
-            <ul>
-                {% block nameList %}{% endblock nameList %}
-            </ul>
+        <div class="card-container right" id = "right">
+            <div class="card-header" id = "active-employees-header">
+                Active Employees
+            </div>    
         </div>
     </div>
-    <div class="card-container" id = "right">
-        <div class="card-header" id = "active-employees-header">
-            Active Employees
-        </div>    
-        
+
+    <div class="bottom-half" style = "border:2px solid purple;">
+        <div class="card-container left qrcode" id = "left">
+                <div class="card-header qrcode" id = "employee-list-header">
+                    Employee ID
+                </div>
+                <div class="card-content qr-code">
+                    <div class="qr-code-container">
+                        {% block qrcode %}
+                        
+                        {% endblock qrcode %}
+                        
+
+                    </div>
+                </div>
+            </div>
+        <div class="card-container right" id = "left">
+                <div class="card-header" id = "active-employees-header">
+                    Employee List
+                </div>
+                <div class="card-content">
+                
+                </div>
+            </div>
     </div>
-   
 </div>
 
 
@@ -51,6 +76,7 @@
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
+
 <script src="{{url_for('static', filename='js/trial.js')}}"></script>
 {{super()}}
 {% endblock %}

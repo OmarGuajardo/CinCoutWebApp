@@ -52,13 +52,13 @@ background-color: #27ae60;
     font-size: 35px;
 }
 
-#left{
+.card-container.left{
     margin-right: 10px;
     background-color: #16a085;
     border: none;
 }
 
-#right{
+.card-container.right{
     background-color: #f39c12;
 }
 
@@ -146,4 +146,36 @@ background-color: #27ae60;
 }
 .dropdown-menu .employee-list-setting:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/* BOTTOM HALF */
+
+.card-container.left.qrcode{
+    text-align: center;
+    background: transparent;
+    border: 2px solid black;
+    
+}
+
+.card-header.qrcode{
+    display: inline-block;
+    border: 2px solid black;
+    width: 50%;
+    
+}
+
+.card-content.qr-code{
+    text-align: center;
+    border:2px solid purple;
+    cursor: default;
+    
+}
+
+.qr-code-container{
+    /* display: inline-block; */
+    /* width: 50%;
+    height: 100%; */
+    
+    background-color: red;   
+
 }
