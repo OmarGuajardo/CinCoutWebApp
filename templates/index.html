@@ -5,6 +5,7 @@
 <li class = "employeeListItem">
     <!-- {{names}}
     <i class="material-icons">more_vert</i> -->
+    
     <div class="name">{{name}}</div>
         <div class="settings">
                 <div class="btn-group dropleft">
@@ -31,6 +32,7 @@
 {% block qrcode %}
 
 <img id = "qrcodeimage" src="https://api.qrserver.com/v1/create-qr-code/?data={{nameArray[1]}}&amp;size=250x250" alt="" title="" />
+
 
 {% endblock qrcode %}
 

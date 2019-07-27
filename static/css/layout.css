@@ -129,6 +129,9 @@ background-color: #27ae60;
 .btn.btn-secondary.dropdown-toggle::before{
     display: none;
 }
+.btn.btn-secondary.dropdown-toggle::after{
+    display: none;
+}
 
 /* SETTING ITEMS FOR EMPLOYEE LIST */
 
