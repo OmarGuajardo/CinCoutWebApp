@@ -4,9 +4,13 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet"
-      href="{{url_for('static', filename='css/login.css')}}">
-      <link rel="shortcut icon" href="https://s3.amazonaws.com/django-blog/ico/favicon_v2.ico">
+<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+<link rel="shortcut icon" href="https://s3.amazonaws.com/django-blog/ico/favicon_v2.ico">
+<script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-database.js"></script>
+
 
 {% endblock %}
 
@@ -21,14 +25,28 @@
           <form>
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
             <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="button" id = "submit" class="fadeIn fourth" value="Log In">
+
           </form>
       
           <!-- Remind Passowrd -->
           <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a id = "signUp" class="underlineHover" href="#">Sign Up</a>
+            <a id = "logOut" class="underlineHover" href="#">Log Out</a>
+
           </div>
       
         </div>
       </div>
+{% endblock %}
+
+{% block scripts %}
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='js/login.js')}}"></script>
+{{super()}}
 {% endblock %}
