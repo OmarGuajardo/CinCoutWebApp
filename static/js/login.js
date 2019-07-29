@@ -36,9 +36,13 @@ $(signUpBtn).on('click',function(){
     const password = passwordText.value;
     const auth = firebase.auth();
 
-    //singing user
+    //signing user
     const promise = auth.createUserWithEmailAndPassword(login,password);
-    promise.catch(e => console.log(e.message));
+    promise.catch(e => {
+        console.log(e.message)
+    });
+
+    
     // registering();
 });
 
@@ -47,7 +51,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     if(firebaseUser){
         console.log(firebaseUser);
         var uid = firebaseUser.uid
-        regisetering(uid);
+        existingUser(uid);
         // TO DO: CHECKING TO SEE IF USER IS ALREADY REGISTERED
     }
     else{
@@ -71,15 +75,22 @@ function regisetering(user) {
 
 var trial = firestore.collection('oMaR9mV44TcbAh5j7Yml4YOsweN2').doc('MainInfo');
 
-var docRef = firestore.collection("oMaR9mV44TcbAh5j7Yml4YOsweN2").doc("MainIno");
+function existingUser(uid){
 
-docRef.get().then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-});
+        var docRef = firestore.collection(uid).doc("MainInfo");
+
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                console.log("User already registered")
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+                console.log("New User. Registering now!")
+                regisetering(uid)
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+
+}
