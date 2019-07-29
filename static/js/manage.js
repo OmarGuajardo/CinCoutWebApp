@@ -4,6 +4,14 @@ employeeListSettingUl = $('.employee-list-setting-ul');
 qr_code_container = $('.qr-code-container');
 card_header_qrcode = $('.card-header.qrcode');
 
+datestamp_ul= $(".datestamp-ul")[0];
+datestamp_li = $(".datestamp-li");
+timestamp_ul = $(".timestamp-ul");
+timestamp_li = $(".timestamp-li");
+
+var datestamp_template = "<li class = 'datestamp-li'> <button class='collapsible'>February 15, 2019</button><div class='content'><ul class='timestamp-ul'><li class='timestamp-li'>Clock In : 12:00 PM</li><li class='timestamp-li'>Clock Out : 5:00 PM</li></ul></div></li>"
+
+
 "https://api.qrserver.com/v1/create-qr-code/?data=OmarGuajardo&amp;size=250x250";
 
 qrCodeImage = $('#qrcodeimage');
@@ -33,7 +41,8 @@ function updateCode(name){
 }
 
 // EXPANDABLE LIST
-var coll = document.getElementsByClassName("collapsible");
+function update(){
+var coll = document.getElementsByClassName('collapsible');
 var i;
 
 for (i = 0; i < coll.length; i++) {
@@ -47,3 +56,6 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
+}
+$(datestamp_ul).append(datestamp_template);
+update();

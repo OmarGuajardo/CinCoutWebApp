@@ -6,6 +6,8 @@ loginText = $('#login')[0];
 passwordText = $('#password')[0];
 logOut = $("#logOut")[0];
 
+
+
 var firebaseConfig = {
     apiKey: "AIzaSyAIamGmniOEtPAyOee22C_Ey0ApVGU3Kes",
     authDomain: "cincout-82180.firebaseapp.com",
@@ -64,4 +66,20 @@ function regisetering(user) {
         "ID": "asdf"
     });
     console.log(user)
+    
 }
+
+var trial = firestore.collection('oMaR9mV44TcbAh5j7Yml4YOsweN2').doc('MainInfo');
+
+var docRef = firestore.collection("oMaR9mV44TcbAh5j7Yml4YOsweN2").doc("MainIno");
+
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
