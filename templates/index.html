@@ -1,33 +1,7 @@
 {%extends 'layout.html'%}
 
 {% block nameList %}
-{% for name in range(0,nameArray|length) %}
-<li class="employeeListItem">
-        <!-- {{names}}
-    <i class="material-icons">more_vert</i> -->
 
-        <div class="name">{{nameArray[name]}}</div>
-        <div class="settings">
-                <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                        </button>
-                        <div class="dropdown-menu">
-                                <ul class="employee-list-setting-ul">
-                                        <li class="employee-list-setting">Edit</li>
-                                        <li class="employee-list-setting">Stats</li>
-                                        <li class="employee-list-setting">ID</li>
-                                        <li id="delete" class="employee-list-setting">Delete</li>
-                                </ul>
-                        </div>
-                </div>
-        </div>
-
-
-</li>
-
-{% endfor %}
 {% endblock nameList %}
 
 <!-- QR CODE IMAGE -->

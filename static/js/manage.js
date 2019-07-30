@@ -1,40 +1,42 @@
-employeeListItems = $(".employeeListItem");
+
+employeeListItemUL = $(".employeeListItemUL")[0];
+employeeListItem = $(".employeeListItem");
 employeeListSetting = $('.employee-list-setting');
 employeeListSettingUl = $('.employee-list-setting-ul');
 qr_code_container = $('.qr-code-container');
 card_header_qrcode = $('.card-header.qrcode');
 
+//Time statistics items
 datestamp_ul= $(".datestamp-ul")[0];
 datestamp_li = $(".datestamp-li");
 timestamp_ul = $(".timestamp-ul");
 timestamp_li = $(".timestamp-li");
 
+qrCodeImage = $('#qrcodeimage');
 
-// var firestore = firebase.firestore();
+var firestore = firebase.firestore();
 
 
 
 var datestamp_template = "<li class = 'datestamp-li'> <button class='collapsible'>February 15, 2019</button><div class='content'><ul class='timestamp-ul'><li class='timestamp-li'>Clock In : 12:00 PM</li><li class='timestamp-li'>Clock Out : 5:00 PM</li></ul></div></li>"
-
-
-"https://api.qrserver.com/v1/create-qr-code/?data=OmarGuajardo&amp;size=250x250";
-
-qrCodeImage = $('#qrcodeimage');
+var employeeListArray = ["Omar Guajardo","Jennifer Guajardo","Anahi Cantu"]
 
 testArray = [];
-
-
-for (let i = 0; i < employeeListItems.length; i++) {
-    
-    indicators = employeeListSettingUl[i].children;
-    nameText = employeeListItems[i].firstElementChild.textContent;
-    // console.log(nameText);
-    testArray.push(nameText);
-    $(indicators[2]).on('click',function(){
-        updateCode(testArray[i])
-    });
-        
-
+function populateList(){
+  for (let i = 0; i < employeeListArray.length; i++) {
+    var beforeText = "<li class='employeeListItem'> <div class='name'>"
+    var afterText = "</div><div class='settings'><div class='btn-group dropleft'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle= 'dropdown' aria-haspopup='true' aria-expanded='false'><i class='material-icons'>more_vert</i></button><div class='dropdown-menu'><ul class='employee-list-setting-ul'><li class='employee-list-setting'>Edit</li><li class='employee-list-setting'>Stats</li><li class='employee-list-setting'>ID</li><li id='delete' class='employee-list-setting'>Delete</li></ul></div></div></div></li>"
+    $(employeeListItemUL).append(beforeText+employeeListArray[i]+afterText);
+    // employeeListArray.push(employeeItemTemp);
+  }
+  for (let i = 0; i < employeeListItemUL.children.length; i++) {
+    // const element = employeeListItemUL[i];
+    var listName = employeeListItemUL.children[i].children[0].textContent;
+    var idBtn = employeeListItemUL.children[i].children[1].children[0].children[1].children[0].children[2];
+    $(idBtn).on('click',function(){
+      updateCode(employeeListArray[i])
+  });
+  }
 }
 
 function updateCode(name){
@@ -63,4 +65,7 @@ for (i = 0; i < coll.length; i++) {
 }
 }
 $(datestamp_ul).append(datestamp_template);
+
 update();
+populateList();
+

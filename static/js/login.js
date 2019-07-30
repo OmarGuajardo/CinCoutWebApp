@@ -103,7 +103,7 @@ function regisetering(user) {
 // <===============STATUS CHECK=====================>
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if(firebaseUser){
-        console.log("Fire base user", firebaseUser);
+        console.log("Fire base user", firebaseUser.email);
         var uid = firebaseUser.uid
         userUID = firebaseUser.uid
         existingUser(uid);
