@@ -9,6 +9,11 @@ datestamp_li = $(".datestamp-li");
 timestamp_ul = $(".timestamp-ul");
 timestamp_li = $(".timestamp-li");
 
+
+// var firestore = firebase.firestore();
+
+
+
 var datestamp_template = "<li class = 'datestamp-li'> <button class='collapsible'>February 15, 2019</button><div class='content'><ul class='timestamp-ul'><li class='timestamp-li'>Clock In : 12:00 PM</li><li class='timestamp-li'>Clock Out : 5:00 PM</li></ul></div></li>"
 
 
