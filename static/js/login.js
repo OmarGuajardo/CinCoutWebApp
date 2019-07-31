@@ -83,7 +83,6 @@ $(signUpBtn).on('click',function(){
     promise.catch(e => {
         console.log(e.message)
     });  
-    clear("signup");
 });
 
 function regisetering(user) {
@@ -94,8 +93,10 @@ function regisetering(user) {
         'Email': emailSignUp.value,
         'Date Registerd': new Date()
     });
-    console.log(user)
     
+    console.log(user)
+    clear("signup");
+
 }
 
 // <===================================================>

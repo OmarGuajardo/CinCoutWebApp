@@ -25,6 +25,36 @@
 
 <div class="title">
     <h1>Cin Cout</h1>
+    <div class="add-employee-btn">
+            <i class="material-icons md-48"   data-toggle="modal" data-target="#exampleModalCenter">
+                add
+                </i>
+  <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style = "text-align: center;"role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Add New Employee</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class = "add-employee-question-ul">
+              <li class = "add-employee-question"><input type="text" placeholder="First Name"></li>
+              <li class = "add-employee-question"><input type="text" placeholder="Last Name"></li>
+              <li class = "add-employee-question"><input type="text" placeholder="Email"></li>
+              <li class = "add-employee-question"><input type="text" placeholder="Student ID"></li>
+              <li class = "add-employee-question"><input type="text" placeholder="Position"></li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id = "add-employee-btn" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
  </div>
 <div class="main-container">
 
@@ -36,6 +66,7 @@
             <div class="card-content">
                 <ul class = "employeeListItemUL">
                     {% block nameList %}{% endblock nameList %}
+                    
                 </ul>
             </div>
         </div>
