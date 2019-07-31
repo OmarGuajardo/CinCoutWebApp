@@ -17,6 +17,7 @@ passwordSignUp2 = $("#confirm-password")[0];
 //Global UID
 userUID = ""
 
+
 $(function() {
 
     $('#login-form-link').click(function(e) {
@@ -60,7 +61,14 @@ $(submitBtn).on('click',function(){
     const auth = firebase.auth();
     //Sign in
     const promise = auth.signInWithEmailAndPassword(login,password);
-    promise.catch(e => console.log(e.message));
+    promise.then(function(firebaseUser){
+        window.location = ('manage');
+    })
+    .catch(function(error){
+        console.log(error.message)
+        console.log('incorret password')
+    });
+    // promise.catch(e => console.log(e.message));
     clear('login');
     // window.location = ("manage");
 });
@@ -107,6 +115,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log("Fire base user", firebaseUser.email);
         var uid = firebaseUser.uid
         userUID = firebaseUser.uid
+        const idTrial = uid
         existingUser(uid);
         }
     else{
@@ -142,7 +151,6 @@ function existingUser(uid){
 
 function clear(state) {
     if(state == 'login'){
-        console.log('working')
         loginText.value = "";
         passwordText.value = "";
     }
@@ -150,6 +158,6 @@ function clear(state) {
         firstName.value = "";
         lastName.value = "";
         emailSignUp.value = "";
-        passwordSignUp = "";
+        passwordSignUp.value = "";
     }
 }
