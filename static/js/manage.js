@@ -76,7 +76,7 @@ function fetchingEmployees(userUID){
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            var userData = doc.data();
+            var userData = doc.data()['UserInfo'];
             var employeeMapTemp = {
               'QRCode' : doc.id,
               'FirstName' : userData['FirstName'],
@@ -135,12 +135,20 @@ $(AddEmployeeBtn).on('click',function(){
   var employeeIDTemp = firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc().id;
   var newEmployeePath = firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeIDTemp);
   newEmployeePath.set({
+    'UserInfo':{
     'FirstName': FirstName.value,
     'LastName': LastName.value,
     'Email': Email.value,
     'ID': StudentID.value,
     'Position': Position.value
+    }
   })
+  firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeIDTemp).collection('Logs').doc('AAA').set({
+    'Setup' : true
+  }).then(function(){
+    console.log('did it')
+  });
+
   updateEmployeeList();
   FirstName.value = "";
   LastName.value = "";
