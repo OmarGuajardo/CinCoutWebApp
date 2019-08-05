@@ -32,6 +32,8 @@ var employeeListArray = ['Omar Guajardo','Luis Acosta','Omar Garza','Anahi Cantu
 var employeeListArray2 = [];
 testArray = [];
 
+var MAINTEST;
+
 // <===============POPULATING THE EMPLOYEE LIST=====================>
 function populateList(){
   console.log(employeeListArray2.length);
@@ -42,10 +44,11 @@ function populateList(){
   }
   for (let i = 0; i < employeeListItemUL.children.length; i++) {
     var listName = employeeListItemUL.children[i].children[0].textContent;
-    var idBtn = employeeListItemUL.children[i].children[1].children[0].children[1].children[0].children[1];
+    var statsBtn = employeeListItemUL.children[i].children[1].children[0].children[1].children[0].children[1];
     var deleteBtn = employeeListItemUL.children[i].children[1].children[0].children[1].children[0].children[2];
-    $(idBtn).on('click',function(){
+    $(statsBtn).on('click',function(){
       qrCode(employeeListArray2[i]['FirstName'],employeeListArray2[i]['QRCode'])
+      employeeTimes(employeeListArray2[i]['QRCode']);
       console.log(employeeListArray2[i]);
   });
   $(deleteBtn).on('click',function(){
@@ -99,6 +102,137 @@ function fetchingEmployees(userUID){
 
 // <===================================================>
 
+// <===============EMPLOYEE TIMES=====================>
+
+function employeeTimes(employeeID){
+
+
+  firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeID).collection('Logs')
+  .onSnapshot(function(querySnapshot) {
+    $(datestamp_ul).empty();
+
+    firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeID).collection('Logs')
+    .get()
+    .then(function(querySnapshot) {
+      logsArray = []
+      logsDataArray = []
+      testArray = []
+        querySnapshot.forEach(function(doc) {
+            // console.log(doc);
+            // console.log(doc.id);
+            // console.log(doc.data());
+            logsArray.push(doc.id);
+            logsDataArray.push(doc.data());
+        });
+        test(logsArray,logsDataArray);
+        // console.log(logsArray[1]);
+        // console.log(logsArray[1][0]);
+    })
+    .catch(function(error) {
+        console.log("Error getting timestamps: ", error);
+    });
+    
+
+  });
+
+  // firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeID).collection('Logs')
+  //   .get()
+  //   .then(function(querySnapshot) {
+  //     logsArray = []
+  //     logsDataArray = []
+  //     testArray = []
+  //       querySnapshot.forEach(function(doc) {
+  //           // console.log(doc);
+  //           // console.log(doc.id);
+  //           // console.log(doc.data());
+  //           logsArray.push(doc.id);
+  //           logsDataArray.push(doc.data());
+  //       });
+  //       test(logsArray,logsDataArray);
+  //       // console.log(logsArray[1]);
+  //       // console.log(logsArray[1][0]);
+  //   })
+  //   .catch(function(error) {
+  //       console.log("Error getting timestamps: ", error);
+  //   });
+    
+
+}
+
+function test(logsArray, logsDataArray){
+  mainDate = []
+  times = []
+  clockInDateTime = [];
+  for (let i = 1; i < logsDataArray.length; i++) {
+    date = logsArray[i]
+    timeData = logsDataArray[i]
+    mainDate.push(date);
+    times.push(timeData['Times'])
+    
+  }
+  for (let i = 0; i < mainDate.length; i++) {
+    var temp = [mainDate[i],times[i]]
+    clockInDateTime.push(temp);
+    console.log(times[i]);
+    displayRecords(mainDate[i],times[i]);
+  }
+  console.log('Clocking Date and Time',clockInDateTime);
+  
+}
+
+function displayRecords(date,times){
+  update();
+  var datestamp_template_after = "</button><div class='content'><ul class='timestamp-ul'>"
+  // <li class='timestamp-li'>Clock Out : 5:00 PM</li></ul></div></li>"
+  for (let i = 0; i < times.length; i++) {
+    // var clocked = String(Object.keys(times[i]))
+    // if(i != times.length-1){
+    //   if(clocked == 'cout')
+    //   datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked Out: "+"</li>" 
+    //   else{
+    //     datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked In: "+"</li>" 
+    //   }   
+    // }
+    // else{
+    //   if(clocked == "cout"){
+    //   datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked Out: "+"</li></ul></div></li>"    
+    //   }
+    //   else{
+    //     datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked In: "+"</li></ul></div></li>"
+    //   }
+
+    // }
+    var clockedMap = {
+      'cout' : 'Cloked Out: ',
+      'cin' : 'Clocked In: '
+    }
+    var clockedInOut = Object.keys(times[i])
+    var generalDate = new Date(times[i][clockedInOut].seconds*1000)
+    var generalDateHour = generalDate.getHours()
+    var clockedTimeStamp;
+    if(generalDateHour > 12){
+      clockedTimeStamp = String((generalDateHour-12)+":"+(generalDate.getMinutes()<10?'0':'') + generalDate.getMinutes()+ " "+"PM")
+    }
+    else{
+      clockedTimeStamp = String((generalDateHour)+":"+(generalDate.getMinutes()<10?'0':'') + generalDate.getMinutes()+ " "+"AM")
+    }
+    // MAINTEST = times[i][clockedInOut]
+    if(i != times.length-1){
+      datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+clockedMap[clockedInOut]+" "+clockedTimeStamp+"</li>" 
+    }
+    else{
+        datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+clockedMap[clockedInOut]+" "+clockedTimeStamp+"</li></ul></div></li>"
+    }
+    console.log(times[i]);
+  }
+  console.log(datestamp_template_after);
+  var datestamp_template_before = "<li class = 'datestamp-li'> <button class='collapsible'>"
+  $(datestamp_ul).append(datestamp_template_before + date + datestamp_template_after);
+  update();
+  console.log(times)
+}
+// <===================================================>
+
 // <===============UPATDING EMPLOYEE LIST=====================>
 
 function updateEmployeeList(){
@@ -149,7 +283,7 @@ $(AddEmployeeBtn).on('click',function(){
     console.log('did it')
   });
 
-  updateEmployeeList();
+  // updateEmployeeList();
   FirstName.value = "";
   LastName.value = "";
   Email.value = "";
@@ -171,11 +305,11 @@ function expandEmployeeList(employeeID){
 }
 // <===================================================>
 
-$(datestamp_ul).append(datestamp_template);
 // firestore.collection('test').doc().set({
 //   'test':'test'
 // })
 update();
+// update();
 
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -183,21 +317,24 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
       var uid = firebaseUser.uid
       userUID2 = uid;
       console.log(uid);
-      fetchingEmployees(uid);
-      
+      qrCode("Boss",uid)
+      emloyeeListener(uid);
       }
   else{
       console.log('not logged in')
   }
 });
 
-function trial(){
+function emloyeeListener(uid){
 firestore.collection(userUID).doc('MainInfo').collection('EmployeeList')
     .onSnapshot(function(querySnapshot) {
         var cities = [];
         querySnapshot.forEach(function(doc) {
             console.log(doc.data())
         });
+        updateEmployeeList();
+
     });
+
   }
 
