@@ -64,7 +64,7 @@
                 Employee List
             </div>
             <div class="card-content">
-                <ul class = "employeeListItemUL">
+                <ul class = "employeeListItemUL" >
                     {% block nameList %}{% endblock nameList %}
                     
                 </ul>
@@ -73,7 +73,13 @@
         <div class="card-container right" id = "right">
             <div class="card-header" id = "active-employees-header">
                 Active Employees
-            </div>    
+            </div>  
+            <div class="card-content">
+              <ul class = "employeeListItemUL" id = "activeEmployeeListUL">
+                  
+                  
+              </ul>
+          </div>  
         </div>
     </div>
 

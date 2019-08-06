@@ -1,3 +1,4 @@
+var firstTime = true;
 
 employeeListItemUL = $(".employeeListItemUL")[0];
 employeeListItem = $(".employeeListItem");
@@ -5,7 +6,7 @@ employeeListSetting = $('.employee-list-setting');
 employeeListSettingUl = $('.employee-list-setting-ul');
 qr_code_container = $('.qr-code-container');
 card_header_qrcode = $('.card-header.qrcode');
-
+activeEmployeeListUL = $('#activeEmployeeListUL');
 //Time statistics items
 datestamp_ul= $(".datestamp-ul")[0];
 datestamp_li = $(".datestamp-li");
@@ -31,12 +32,12 @@ var datestamp_template = "<li class = 'datestamp-li'> <button class='collapsible
 var employeeListArray = ['Omar Guajardo','Luis Acosta','Omar Garza','Anahi Cantu','Denielle Islas','Jennifer Guajardo']
 var employeeListArray2 = [];
 testArray = [];
-
+var activeEmployeeArray = [];
+// var i;
 var MAINTEST;
 
 // <===============POPULATING THE EMPLOYEE LIST=====================>
 function populateList(){
-  console.log(employeeListArray2.length);
   for (let i = 0; i < employeeListArray2.length; i++) {
     var beforeText = "<li class='employeeListItem'> <div class='name'>"
     var afterText = "</div><div class='settings'><div class='btn-group dropleft'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle= 'dropdown' aria-haspopup='true' aria-expanded='false'><i class='material-icons'>more_vert</i></button><div class='dropdown-menu'><ul class='employee-list-setting-ul'><li class='employee-list-setting'  data-toggle='modal' data-target='#exampleModalCenter'>Edit</li><li class='employee-list-setting'>Stats</li><li id='delete' class='employee-list-setting'>Delete</li></ul></div></div></div></li>"
@@ -49,7 +50,7 @@ function populateList(){
     $(statsBtn).on('click',function(){
       qrCode(employeeListArray2[i]['FirstName'],employeeListArray2[i]['QRCode'])
       employeeTimes(employeeListArray2[i]['QRCode']);
-      console.log(employeeListArray2[i]);
+
   });
   $(deleteBtn).on('click',function(){
     firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeListArray2[i]["QRCode"]).delete().then(function() {
@@ -77,8 +78,6 @@ function fetchingEmployees(userUID){
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
             var userData = doc.data()['UserInfo'];
             var employeeMapTemp = {
               'QRCode' : doc.id,
@@ -118,15 +117,10 @@ function employeeTimes(employeeID){
       logsDataArray = []
       testArray = []
         querySnapshot.forEach(function(doc) {
-            // console.log(doc);
-            // console.log(doc.id);
-            // console.log(doc.data());
             logsArray.push(doc.id);
             logsDataArray.push(doc.data());
         });
         test(logsArray,logsDataArray);
-        // console.log(logsArray[1]);
-        // console.log(logsArray[1][0]);
     })
     .catch(function(error) {
         console.log("Error getting timestamps: ", error);
@@ -134,29 +128,6 @@ function employeeTimes(employeeID){
     
 
   });
-
-  // firestore.collection(userUID).doc('MainInfo').collection('EmployeeList').doc(employeeID).collection('Logs')
-  //   .get()
-  //   .then(function(querySnapshot) {
-  //     logsArray = []
-  //     logsDataArray = []
-  //     testArray = []
-  //       querySnapshot.forEach(function(doc) {
-  //           // console.log(doc);
-  //           // console.log(doc.id);
-  //           // console.log(doc.data());
-  //           logsArray.push(doc.id);
-  //           logsDataArray.push(doc.data());
-  //       });
-  //       test(logsArray,logsDataArray);
-  //       // console.log(logsArray[1]);
-  //       // console.log(logsArray[1][0]);
-  //   })
-  //   .catch(function(error) {
-  //       console.log("Error getting timestamps: ", error);
-  //   });
-    
-
 }
 
 function test(logsArray, logsDataArray){
@@ -185,23 +156,6 @@ function displayRecords(date,times){
   var datestamp_template_after = "</button><div class='content'><ul class='timestamp-ul'>"
   // <li class='timestamp-li'>Clock Out : 5:00 PM</li></ul></div></li>"
   for (let i = 0; i < times.length; i++) {
-    // var clocked = String(Object.keys(times[i]))
-    // if(i != times.length-1){
-    //   if(clocked == 'cout')
-    //   datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked Out: "+"</li>" 
-    //   else{
-    //     datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked In: "+"</li>" 
-    //   }   
-    // }
-    // else{
-    //   if(clocked == "cout"){
-    //   datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked Out: "+"</li></ul></div></li>"    
-    //   }
-    //   else{
-    //     datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+"Clocked In: "+"</li></ul></div></li>"
-    //   }
-
-    // }
     var clockedMap = {
       'cout' : 'Cloked Out: ',
       'cin' : 'Clocked In: '
@@ -223,13 +177,10 @@ function displayRecords(date,times){
     else{
         datestamp_template_after = datestamp_template_after + "<li class='timestamp-li'>"+clockedMap[clockedInOut]+" "+clockedTimeStamp+"</li></ul></div></li>"
     }
-    console.log(times[i]);
   }
-  console.log(datestamp_template_after);
   var datestamp_template_before = "<li class = 'datestamp-li'> <button class='collapsible'>"
   $(datestamp_ul).append(datestamp_template_before + date + datestamp_template_after);
   update();
-  console.log(times)
 }
 // <===================================================>
 
@@ -262,6 +213,91 @@ for (i = 0; i < coll.length; i++) {
 }
 // <===================================================>
 
+// <===============ACTIVE EMPLOYEE LIST=====================>
+function updateActiveEmployeeList(){
+  
+  
+  firestore.collection(userUID2).doc('MainInfo').collection('EmployeeList')
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            var name = doc.data()['UserInfo']['FirstName']+" "+doc.data()['UserInfo']['LastName']
+
+           
+            firestore.collection(userUID2+"/MainInfo/EmployeeList/" + doc.id+"/Logs")
+            .onSnapshot(function (querySnapshot){
+              
+
+              firestore.collection(userUID2+"/MainInfo/EmployeeList/" + doc.id+"/Logs")
+              .get()
+             .then(function(querySnapshot) {
+                   var i = 0
+                   querySnapshot.forEach(function(doc) {
+                     if(i == querySnapshot.size-1){
+                       var lastTimeClockedArray = doc.data()['Times']
+                       var lastTimeClocked = lastTimeClockedArray[lastTimeClockedArray.length-1]
+                       if(Object.keys(lastTimeClocked) == "cin"){
+                         console.log(name +" is clocked in")
+                         activeEmployeeArray.push(name)
+                         appendingEmployeeList()
+                       }
+                       else{
+                        removeName(name);
+                        appendingEmployeeList()
+                       }
+                       
+                     }
+                     
+                    i = i + 1;
+   
+               });
+               })
+             
+            })
+
+      
+  
+   
+            
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+    
+
+
+
+}
+
+function emptyActiveEmployeeList(){
+  $(activeEmployeeListUL).empty()
+}
+
+function appendingEmployeeList(){
+  emptyActiveEmployeeList();
+  var beforeText = "<li class='employeeListItem'> <div class='name'>"
+  var afterText = "</div><div class='settings'><div class='btn-group dropleft'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle= 'dropdown' aria-haspopup='true' aria-expanded='false'><i class='material-icons'>more_vert</i></button><div class='dropdown-menu'><ul class='employee-list-setting-ul'><li class='employee-list-setting'  data-toggle='modal' data-target='#exampleModalCenter'>Edit</li><li class='employee-list-setting'>Stats</li><li id='delete' class='employee-list-setting'>Delete</li></ul></div></div></div></li>"
+  for (let i = 0; i < activeEmployeeArray.length; i++) {    
+    $(activeEmployeeListUL).append(beforeText+activeEmployeeArray[i]+afterText)
+  }
+
+}
+
+function removeName(name){
+
+  for (let i = 0; i < activeEmployeeArray.length; i++) {
+
+    if(activeEmployeeArray[i] == name){
+      activeEmployeeArray.splice(i,1)
+    }
+    
+  }
+}
+
+
+// <===================================================>
 // <===============ADDING EMPLOYEES=====================>
 
 $(AddEmployeeBtn).on('click',function(){
@@ -305,11 +341,7 @@ function expandEmployeeList(employeeID){
 }
 // <===================================================>
 
-// firestore.collection('test').doc().set({
-//   'test':'test'
-// })
 update();
-// update();
 
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -319,6 +351,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
       console.log(uid);
       qrCode("Boss",uid)
       emloyeeListener(uid);
+      updateActiveEmployeeList();
       }
   else{
       console.log('not logged in')
@@ -328,13 +361,12 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 function emloyeeListener(uid){
 firestore.collection(userUID).doc('MainInfo').collection('EmployeeList')
     .onSnapshot(function(querySnapshot) {
-        var cities = [];
-        querySnapshot.forEach(function(doc) {
-            console.log(doc.data())
-        });
+        
         updateEmployeeList();
-
     });
 
   }
 
+
+
+  
