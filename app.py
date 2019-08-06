@@ -9,7 +9,7 @@ Bootstrap(app)
 nameArray = ['Omar Guajardo','Luis Acosta','Omar Garza','Anahi Cantu','Denielle Islas','Jennifer Guajardo']
 
 
-@app.route('/login')
+@app.route('/')
 def login():
     return render_template('login.html')
 
