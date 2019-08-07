@@ -141,7 +141,11 @@ transition: all .5s;
     height: 330px;
     /* overflow: hidden; */
     overflow: auto;
+    overflow-x:hidden;
     cursor: pointer;
+}
+.card-content::-webkit-scrollbar{
+    display:none;
 }
 
 .card-content ul{
