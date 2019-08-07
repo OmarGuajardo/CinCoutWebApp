@@ -1,5 +1,7 @@
 body {
   padding-top: 90px;
+  background-image: url("background.jpg");
+  background-size: cover;
 }
 .panel-login {
 border-color: #ccc;

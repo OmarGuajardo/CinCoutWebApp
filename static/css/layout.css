@@ -140,7 +140,7 @@ transition: all .5s;
     color: white;
     height: 330px;
     /* overflow: hidden; */
-    overflow: scroll;
+    overflow: auto;
     cursor: pointer;
 }
 
